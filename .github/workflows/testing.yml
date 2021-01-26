@@ -1,0 +1,64 @@
+name: "Testing"
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - feature/**
+      - tests/**
+  pull_request:
+    branches:
+      - master
+
+env:
+  COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --no-suggest --prefer-dist --optimize-autoloader"
+
+jobs:
+  phpunit:
+    name: PHPUnit
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      max-parallel: 15
+      matrix:
+        php-version: [ '7.2', '7.3', '7.4' ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: intl
+          ini-values: post_max_size=256M, pcov.directory=app, "memory_limit=-1"
+          tools: composer:v2
+          coverage: pcov
+
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Validate Composer
+        run: composer validate
+
+      - name: Install Composer dependencies
+        run: composer install ${{ env.COMPOSER_FLAGS }}
+
+      - name: Run tests
+        run: composer run test
