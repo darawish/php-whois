@@ -280,7 +280,7 @@ class BlockParser extends CommonParser
                 ->selectKeys($this->ownerKeys)
                 ->getFirst('');
         }
-        if (!empty($owner)) {
+        if (!empty($owner) && !is_array($owner)) {
             $owner = $rootFilter->cloneMe()
                 ->setSubsetParams(['$id' => $owner])
                 ->useMatchFirstOnly(true)
