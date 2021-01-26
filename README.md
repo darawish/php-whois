@@ -1,6 +1,6 @@
 # PHP WHOIS
 
-[![Build Status](https://travis-ci.org/io-developer/php-whois.svg?branch=master)](https://travis-ci.org/io-developer/php-whois)
+[![Build Status](https://github.com/darawish/php-whois/workflows/Testing/badge.svg)](https://github.com/darawish/php-whois/actions)
 [![PHP version](https://img.shields.io/badge/php-%3E%3D5.4-8892BF.svg)](https://secure.php.net/)
 [![Packagist](https://img.shields.io/packagist/v/io-developer/php-whois.svg)](https://packagist.org/packages/io-developer/php-whois)
 
