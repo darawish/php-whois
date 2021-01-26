@@ -3,19 +3,18 @@ Domain:
 
 Domain Status:
      Active
-     Update Prohibited by Registrar
      Delete Prohibited by Registrar
+     Update Prohibited by Registrar
      Transfer Prohibited by Registrar
 
 Registrant:
-     Google, Inc.
-     
+     (not available)
 
 Registrar:
      MarkMonitor Inc. (http://www.markmonitor.com)
 
 Relevant dates:
-     Registered on 02nd August 2000
+     Registered on 02nd August 2000 at 00:08:00.000
      Registry fee due on 02nd August each year
 
 Registration status:
@@ -26,14 +25,14 @@ Name servers:
      ns2.google.com
      ns3.google.com
      ns4.google.com
-     
 
-WHOIS lookup made on Sat, 18 Nov 2017 at 21:11:14 UTC
+
+WHOIS lookup made on Tue, 26 Jan 2021 at 9:22:13 GMT
 
 This WHOIS information is provided for free by CIDR, operator of
 the backend registry for domain names ending in GG, JE, and AS.
 
-Copyright (c) and database right AS Domain Registry 1997 - 2017.
+Copyright (c) and database right AS Domain Registry 1997 - 2021.
 
 You may not access this WHOIS server or use any data from it except
 as permitted by our Terms and Conditions which are published
@@ -48,5 +47,4 @@ They include restrictions and prohibitions on
 - exceeding query rate or volume limits.
 
 The data is provided on an 'as-is' basis and may lag behind the
-register. Access may be withdrawn or restricted at any time. 
-
+register. Access may be withdrawn or restricted at any time.
