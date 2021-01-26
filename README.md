@@ -1,8 +1,8 @@
 # PHP WHOIS
 
 [![Build Status](https://github.com/darawish/php-whois/workflows/Testing/badge.svg)](https://github.com/darawish/php-whois/actions)
-[![PHP version](https://img.shields.io/badge/php-%3E%3D5.4-8892BF.svg)](https://secure.php.net/)
-[![Packagist](https://img.shields.io/packagist/v/io-developer/php-whois.svg)](https://packagist.org/packages/io-developer/php-whois)
+[![PHP version](https://img.shields.io/badge/php-%3E%3D7.2-8892BF.svg)](https://secure.php.net/)
+![Version](https://img.shields.io/packagist/v/io-developer/php-whois.svg)
 
 PHP WHOIS client implementation. Sends the queries directly to the WHOIS services.
 
