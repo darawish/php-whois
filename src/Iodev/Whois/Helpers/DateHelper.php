@@ -5,12 +5,16 @@ namespace Iodev\Whois\Helpers;
 class DateHelper
 {
     /**
-     * @param string $datestamp
+     * @param string|array $datestamp
      * @param bool $inverseMMDD
      * @return int
      */
     public static function parseDate($datestamp, $inverseMMDD = false)
     {
+        if(is_array($datestamp)) {
+            return null;
+        }
+
         $s = trim($datestamp);
         if (preg_match('/^\d{2}[-\s]+\w+[-\s]+\d{4}[-\s]+\d{2}:\d{2}(:\d{2})?([-\s]+\w+)?/ui', $s)) {
             // pass
