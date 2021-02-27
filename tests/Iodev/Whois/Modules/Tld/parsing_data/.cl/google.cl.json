@@ -1,0 +1,17 @@
+{
+    "domainName": "google.cl",
+    "whoisServer": "",
+    "nameServers": [
+        "ns1.google.com",
+        "ns2.google.com",
+        "ns3.google.com",
+        "ns4.google.com"
+    ],
+    "dnssec": "",
+    "creationDate": "2002-10-22T17:48:23",
+    "expirationDate": "2021-11-20T14:48:02",
+    "updatedDate": "",
+    "states": [],
+    "owner": "Google LLC",
+    "registrar": "MarkMonitor Inc."
+}

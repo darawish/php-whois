@@ -290,7 +290,7 @@ class TldParsingTest extends TestCase
 
             // .CL
             ["free.cl", ".cl/free.txt", null],
-            // [ "google.cl", ".cl/google.cl.txt", ".cl/google.cl.json" ],
+            [ "google.cl", ".cl/google.cl.txt", ".cl/google.cl.json" ],
 
             // .CM
             ["free.cm", ".cm/free.txt", null],
