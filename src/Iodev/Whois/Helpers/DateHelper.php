@@ -21,7 +21,9 @@ class DateHelper
             return (int)strtotime($s);
         }
 
-        if (preg_match('/^(\d{4})\.\s*(\d{2})\.\s*(\d{2})\.?\s*$/ui', $s, $m)) {
+        if (preg_match('/^\d{4}[-\s]+\d{2}[-\s]+\d{2}[-\s]+\d{2}:\d{2}:\d{2}([-\s]+\w+)/ui', $s, $m)) {
+            $s = str_replace($m[1],'',$s);
+        } elseif (preg_match('/^(\d{4})\.\s*(\d{2})\.\s*(\d{2})\.?\s*$/ui', $s, $m)) {
             $s = "{$m[1]}-{$m[2]}-{$m[3]}T00:00:00";
         } elseif (preg_match('/^\d{4}\.\d{2}\.\d{2}\s+\d{2}:\d{2}:\d{2}/ui', $s)) {
             $s = str_replace(".", "-", $s);
