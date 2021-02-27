@@ -1,5 +1,6 @@
 ---
-name: 🐛 Bug Report about: Report errors and problems
+name: 🐛 Bug Report 
+about: Report errors and problems
 ---
 
 **PHP-Whois version**: x.y.z
