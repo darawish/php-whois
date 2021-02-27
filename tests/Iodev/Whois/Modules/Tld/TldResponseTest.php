@@ -19,22 +19,22 @@ class TldResponseTest extends TestCase
         ]);
     }
 
-    public function testGetDomain()
+    public function testGetDomain(): void
     {
         self::assertEquals("domain.some", $this->resp->domain);
     }
 
-    public function testGetQuery()
+    public function testGetQuery(): void
     {
         self::assertEquals("domain.some", $this->resp->query);
     }
 
-    public function testGetText()
+    public function testGetText(): void
     {
         self::assertEquals("Test content", $this->resp->text);
     }
 
-    public function testGetHost()
+    public function testGetHost(): void
     {
         self::assertEquals("whois.host.abc", $this->resp->host);
     }

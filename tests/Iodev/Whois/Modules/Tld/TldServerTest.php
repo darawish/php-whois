@@ -7,53 +7,53 @@ use PHPUnit\Framework\TestCase;
 
 class TldServerTest extends TestCase
 {
-    private static function getServerClass()
+    private static function getServerClass(): string
     {
-        return '\Iodev\Whois\Modules\Tld\TldServer';
+        return \Iodev\Whois\Modules\Tld\TldServer::class;
     }
 
-    private static function getParser()
+    private static function getParser(): TldParser
     {
         return Factory::get()->createTldParserByClass(self::getParserClass());
     }
 
-    private static function getParserClass()
+    private static function getParserClass(): string
     {
-        return '\Iodev\Whois\Modules\Tld\Parsers\TestCommonParser';
+        return \Iodev\Whois\Modules\Tld\Parsers\TestCommonParser::class;
     }
 
 
-    public function testConstructValid()
+    public function testConstructValid(): void
     {
         $instance = new TldServer(".abc", "some.host.com", false, self::getParser());
-        $this->assertInstanceOf(TldServer::class, $instance);
+        self::assertInstanceOf(TldServer::class, $instance);
     }
 
-    public function testConstructEmptyZone()
+    public function testConstructEmptyZone(): void
     {
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         new TldServer("", "some.host.com", false, self::getParser());
     }
 
-    public function testConstructEmptyHost()
+    public function testConstructEmptyHost(): void
     {
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         new TldServer(".abc", "", false, self::getParser());
     }
 
-    public function testGetZone()
+    public function testGetZone(): void
     {
         $s = new TldServer(".abc", "some.host.com", false, self::getParser());
         self::assertEquals(".abc", $s->getZone());
     }
 
-    public function testGetHost()
+    public function testGetHost(): void
     {
         $s = new TldServer(".abc", "some.host.com", false, self::getParser());
         self::assertEquals("some.host.com", $s->getHost());
     }
 
-    public function testIsCentralizedTrue()
+    public function testIsCentralizedTrue(): void
     {
         $s = new TldServer(".abc", "some.host.com", true, self::getParser());
         self::assertTrue($s->isCentralized());
@@ -62,7 +62,7 @@ class TldServerTest extends TestCase
         self::assertTrue($s->isCentralized());
     }
 
-    public function testIsCentralizedFalse()
+    public function testIsCentralizedFalse(): void
     {
         $s = new TldServer(".abc", "some.host.com", false, self::getParser());
         self::assertFalse($s->isCentralized());
@@ -71,38 +71,38 @@ class TldServerTest extends TestCase
         self::assertFalse($s->isCentralized());
     }
 
-    public function testGetParserViaInstance()
+    public function testGetParserViaInstance(): void
     {
         $p = self::getParser();
         $s = new TldServer(".abc", "some.host.com", false, $p);
         self::assertSame($p, $s->getParser());
     }
 
-    public function testIsDomainZoneValid()
+    public function testIsDomainZoneValid(): void
     {
         $s = new TldServer(".abc", "some.host.com", false, self::getParser());
         self::assertTrue($s->isDomainZone("some.abc"));
     }
 
-    public function testIsDomainZoneValidComplex()
+    public function testIsDomainZoneValidComplex(): void
     {
         $s = new TldServer(".abc", "some.host.com", false, self::getParser());
         self::assertTrue($s->isDomainZone("some.foo.bar.abc"));
     }
 
-    public function testIsDomainZoneInvalid()
+    public function testIsDomainZoneInvalid(): void
     {
         $s = new TldServer(".abc", "some.host.com", false, self::getParser());
         self::assertFalse($s->isDomainZone("some.com"));
     }
 
-    public function testIsDomainZoneInvalidEnd()
+    public function testIsDomainZoneInvalidEnd(): void
     {
         $s = new TldServer(".foo.bar", "some.host.com", false, self::getParser());
         self::assertFalse($s->isDomainZone("some.bar"));
     }
 
-    public function testBuildDomainQueryDefault()
+    public function testBuildDomainQueryDefault(): void
     {
         $s = new TldServer(".foo.bar", "some.host.com", false, self::getParser());
         self::assertEquals("domain.com\r\n", $s->buildDomainQuery("domain.com"));
@@ -114,7 +114,7 @@ class TldServerTest extends TestCase
         self::assertEquals("site.com\r\n", $s->buildDomainQuery("site.com"));
     }
 
-    public function testBuildDomainQueryEmpty()
+    public function testBuildDomainQueryEmpty(): void
     {
         $s = new TldServer(".foo.bar", "some.host.com", false, self::getParser(), "");
         self::assertEquals("some.com\r\n", $s->buildDomainQuery("some.com"));
@@ -126,13 +126,13 @@ class TldServerTest extends TestCase
         self::assertEquals("prefix domain.com suffix\r\n", $s->buildDomainQuery("domain.com"));
     }
 
-    public function testBuildDomainQueryCustomNoParam()
+    public function testBuildDomainQueryCustomNoParam(): void
     {
         $s = new TldServer(".foo.bar", "some.host.com", false, self::getParser(), "prefix suffix\r\n");
         self::assertEquals("prefix suffix\r\n", $s->buildDomainQuery("domain.com"));
     }
 
-    public function testFromDataFullArgs()
+    public function testFromDataFullArgs(): void
     {
         $s = TldServer::fromData([
             "zone" => ".abc",
@@ -149,9 +149,9 @@ class TldServerTest extends TestCase
         self::assertEquals("prefix %s suffix\r\n", $s->getQueryFormat());
     }
 
-    public function testFromDataZoneHostOnly()
+    public function testFromDataZoneHostOnly(): void
     {
-        $s = TldServer::fromData([ "zone" => ".abc", "host" => "some.host" ], self::getParser());
+        $s = TldServer::fromData(["zone" => ".abc", "host" => "some.host"], self::getParser());
 
         self::assertEquals(".abc", $s->getZone());
         self::assertEquals("some.host", $s->getHost());
@@ -159,48 +159,48 @@ class TldServerTest extends TestCase
         self::assertInstanceOf(self::getParserClass(), $s->getParser());
     }
 
-    public function testFromDataMissingZone()
+    public function testFromDataMissingZone(): void
     {
-        $this->expectException('\InvalidArgumentException');
-        TldServer::fromData([ "host" => "some.host" ], self::getParser());
+        $this->expectException(\InvalidArgumentException::class);
+        TldServer::fromData(["host" => "some.host"], self::getParser());
     }
 
-    public function testFromDataMissingHost()
+    public function testFromDataMissingHost(): void
     {
-        $this->expectException('\InvalidArgumentException');
-        TldServer::fromData([ "zone" => ".abc" ], self::getParser());
+        $this->expectException(\InvalidArgumentException::class);
+        TldServer::fromData(["zone" => ".abc"], self::getParser());
     }
 
-    public function testFromDataMissingAll()
+    public function testFromDataMissingAll(): void
     {
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         TldServer::fromData([], self::getParser());
     }
 
-    public function testFromDataListOne()
+    public function testFromDataListOne(): void
     {
         $s = TldServer::fromDataList(
-            [ [ "zone" => ".abc", "host" => "some.host" ] ],
+            [["zone" => ".abc", "host" => "some.host"]],
             self::getParser()
         );
-        self::assertTrue(is_array($s), "Array expected");
-        self::assertEquals(1, count($s));
+        self::assertIsArray($s, "Array expected");
+        self::assertCount(1, $s);
         self::assertInstanceOf(self::getServerClass(), $s[0]);
         self::assertEquals(".abc", $s[0]->getZone());
         self::assertEquals("some.host", $s[0]->getHost());
         self::assertInstanceOf(self::getParserClass(), $s[0]->getParser());
     }
 
-    public function testFromDataListTwo()
+    public function testFromDataListTwo(): void
     {
         $s = TldServer::fromDataList([
-                [ "zone" => ".abc", "host" => "some.host" ],
-                [ "zone" => ".cde", "host" => "other.host", "centralized" => true, "queryFormat" => "prefix %s suffix\r\n" ],
-            ],
+            ["zone" => ".abc", "host" => "some.host"],
+            ["zone" => ".cde", "host" => "other.host", "centralized" => true, "queryFormat" => "prefix %s suffix\r\n"],
+        ],
             self::getParser()
         );
-        self::assertTrue(is_array($s), "Array expected");
-        self::assertEquals(2, count($s));
+        self::assertIsArray($s, "Array expected");
+        self::assertCount(2, $s);
 
         self::assertInstanceOf(self::getServerClass(), $s[0]);
         self::assertEquals(".abc", $s[0]->getZone());

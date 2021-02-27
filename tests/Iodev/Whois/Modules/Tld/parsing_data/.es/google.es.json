@@ -1,11 +1,11 @@
 {
-  "domainName": "google.es",
-  "owner": "Google LLC",
-  "whoisServer": null,
-  "nameServers": [],
-  "creationDate": null,
-  "expirationDate": null,
-  "updatedDate": "",
-  "states": [],
-  "registrar": null
+    "domainName": "google.es",
+    "owner": "Google LLC",
+    "whoisServer": null,
+    "nameServers": [],
+    "creationDate": null,
+    "expirationDate": null,
+    "updatedDate": "",
+    "states": [],
+    "registrar": null
 }

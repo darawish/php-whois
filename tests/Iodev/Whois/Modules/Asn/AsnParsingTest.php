@@ -124,16 +124,16 @@ class AsnParsingTest extends TestCase
     public function test_AS32934()
     {
         self::assertDataItems([
-            [ "AS32934", "AS32934/whois.ripe.net.txt", null ],
-            [ "AS32934", "AS32934/whois.radb.net.txt", "AS32934/whois.radb.net.json" ],
+            ["AS32934", "AS32934/whois.ripe.net.txt", null],
+            ["AS32934", "AS32934/whois.radb.net.txt", "AS32934/whois.radb.net.json"],
         ]);
     }
 
     public function test_AS62041()
     {
         self::assertDataItems([
-            [ "AS62041", "AS62041/whois.ripe.net.txt", "AS62041/whois.ripe.net.json" ],
-            [ "AS62041", "AS62041/whois.radb.net.txt", "AS62041/whois.radb.net.json" ],
+            ["AS62041", "AS62041/whois.ripe.net.txt", "AS62041/whois.ripe.net.json"],
+            ["AS62041", "AS62041/whois.radb.net.txt", "AS62041/whois.radb.net.json"],
         ]);
     }
 }

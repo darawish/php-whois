@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class TldConfigTest extends TestCase
 {
-    public function testUnnecessarySubzones()
+    public function testUnnecessarySubzones(): void
     {
         $data = Config::load('module.tld.servers');
 

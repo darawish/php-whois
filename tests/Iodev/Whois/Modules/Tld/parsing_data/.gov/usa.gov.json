@@ -1,13 +1,13 @@
 {
-  "domainName": "usa.gov",
-  "whoisServer": "",
-  "nameServers": [],
-  "creationDate": "",
-  "expirationDate": "",
-  "updatedDate": "",
-  "states": [
-    "active"
-  ],
-  "owner": "",
-  "registrar": ""
+    "domainName": "usa.gov",
+    "whoisServer": "",
+    "nameServers": [],
+    "creationDate": "",
+    "expirationDate": "",
+    "updatedDate": "",
+    "states": [
+        "active"
+    ],
+    "owner": "",
+    "registrar": ""
 }
