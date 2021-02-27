@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       max-parallel: 15
       matrix:
-        php-version: [ '7.2', '7.3', '7.4', '8.0 ]
+        php-version: [ '7.2', '7.3', '7.4', "8.0 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles("**/composer.lock") }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Setup PHP
