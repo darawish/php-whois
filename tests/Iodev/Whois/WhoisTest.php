@@ -14,16 +14,6 @@ class WhoisTest extends TestCase
     /** @var FakeSocketLoader */
     private $loader;
 
-    /**
-     * @return Whois
-     */
-    private function getWhois()
-    {
-        $this->loader = new FakeSocketLoader();
-        $this->whois = new Whois($this->loader);
-        return $this->whois;
-    }
-
     public function testConstruct()
     {
         $instance = new Whois(new SocketLoader());
@@ -34,5 +24,15 @@ class WhoisTest extends TestCase
     {
         $w = $this->getWhois();
         self::assertSame($this->loader, $w->getLoader());
+    }
+
+    /**
+     * @return Whois
+     */
+    private function getWhois()
+    {
+        $this->loader = new FakeSocketLoader();
+        $this->whois = new Whois($this->loader);
+        return $this->whois;
     }
 }

@@ -6,9 +6,10 @@ use PHPUnit\Framework\TestCase;
 
 class TldInfoTest extends TestCase
 {
-    private static function createInfo($data = []): TldInfo
+    public function testConstructEmptyData(): void
     {
-        return new TldInfo(self::getResponse(), $data);
+        $instance = new TldInfo(self::getResponse(), []);
+        $this->assertInstanceOf(TldInfo::class, $instance);
     }
 
     private static function getResponse(): TldResponse
@@ -20,13 +21,6 @@ class TldInfoTest extends TestCase
         ]);
     }
 
-
-    public function testConstructEmptyData(): void
-    {
-        $instance = new TldInfo(self::getResponse(), []);
-        $this->assertInstanceOf(TldInfo::class, $instance);
-    }
-
     public function testGetResponse(): void
     {
         $r = self::getResponse();
@@ -34,11 +28,15 @@ class TldInfoTest extends TestCase
         self::assertSame($r, $i->getResponse());
     }
 
-
     public function testGetDomainName(): void
     {
         $i = self::createInfo(["domainName" => "foo.bar"]);
         self::assertEquals("foo.bar", $i->domainName);
+    }
+
+    private static function createInfo($data = []): TldInfo
+    {
+        return new TldInfo(self::getResponse(), $data);
     }
 
     public function testGetDomainNameDefault(): void

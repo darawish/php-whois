@@ -9,29 +9,12 @@ use PHPUnit\Framework\TestCase;
 
 class AsnParsingTest extends TestCase
 {
-    /**
-     * @param $filename
-     * @return string
-     * @throws InvalidArgumentException
-     */
-    public static function loadContent($filename)
+    public function test_AS32934()
     {
-        $file = __DIR__ . '/parsing_data/' . $filename;
-        if (!file_exists($file)) {
-            throw new InvalidArgumentException("File '$file' not found");
-        }
-        return file_get_contents($file);
-    }
-
-    /**
-     * @param string $filename
-     * @return Whois
-     */
-    private static function whoisFrom($filename)
-    {
-        $l = new FakeSocketLoader();
-        $l->text = self::loadContent($filename);
-        return new Whois($l);
+        self::assertDataItems([
+            ["AS32934", "AS32934/whois.ripe.net.txt", null],
+            ["AS32934", "AS32934/whois.radb.net.txt", "AS32934/whois.radb.net.json"],
+        ]);
     }
 
     /**
@@ -120,13 +103,29 @@ class AsnParsingTest extends TestCase
         }
     }
 
-
-    public function test_AS32934()
+    /**
+     * @param string $filename
+     * @return Whois
+     */
+    private static function whoisFrom($filename)
     {
-        self::assertDataItems([
-            ["AS32934", "AS32934/whois.ripe.net.txt", null],
-            ["AS32934", "AS32934/whois.radb.net.txt", "AS32934/whois.radb.net.json"],
-        ]);
+        $l = new FakeSocketLoader();
+        $l->text = self::loadContent($filename);
+        return new Whois($l);
+    }
+
+    /**
+     * @param $filename
+     * @return string
+     * @throws InvalidArgumentException
+     */
+    public static function loadContent($filename)
+    {
+        $file = __DIR__ . '/parsing_data/' . $filename;
+        if (!file_exists($file)) {
+            throw new InvalidArgumentException("File '$file' not found");
+        }
+        return file_get_contents($file);
     }
 
     public function test_AS62041()

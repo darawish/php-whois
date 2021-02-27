@@ -5,6 +5,7 @@ namespace Iodev\Whois\Modules\Tld;
 use InvalidArgumentException;
 use Iodev\Whois\Exceptions\ConnectionException;
 use Iodev\Whois\Exceptions\ServerMismatchException;
+use Iodev\Whois\Exceptions\WhoisException;
 use Iodev\Whois\Helpers\DomainHelper;
 use Iodev\Whois\Loaders\FakeSocketLoader;
 use Iodev\Whois\Whois;
@@ -13,40 +14,6 @@ use PHPUnit\Framework\TestCase;
 class TldParsingTest extends TestCase
 {
     /**
-     * @param $filename
-     * @return bool|string
-     */
-    private static function loadContent($filename)
-    {
-        $file = __DIR__ . '/parsing_data/' . $filename;
-        if (!file_exists($file)) {
-            throw new InvalidArgumentException("File '$file' not found");
-        }
-        return file_get_contents($file);
-    }
-
-    /**
-     * @param string $filename
-     * @return Whois
-     */
-    private static function whoisFrom($filename): Whois
-    {
-        $l = new FakeSocketLoader();
-        $l->text = self::loadContent($filename);
-        return new Whois($l);
-    }
-
-    /**
-     * @param array $a
-     * @return array
-     */
-    private static function sort($a): array
-    {
-        sort($a);
-        return $a;
-    }
-
-    /**
      * @dataProvider getTestData
      *
      * @param string $domain
@@ -54,7 +21,7 @@ class TldParsingTest extends TestCase
      * @param string $expectedJsonFilename
      * @throws ConnectionException
      * @throws ServerMismatchException
-     * @throws \Iodev\Whois\Exceptions\WhoisException
+     * @throws WhoisException
      */
     public function testResponseParsing($domain, $srcTextFilename, $expectedJsonFilename = null): void
     {
@@ -137,6 +104,40 @@ class TldParsingTest extends TestCase
             $info->dnssec,
             "DNSSEC mismatch ($srcTextFilename)"
         );
+    }
+
+    /**
+     * @param string $filename
+     * @return Whois
+     */
+    private static function whoisFrom($filename): Whois
+    {
+        $l = new FakeSocketLoader();
+        $l->text = self::loadContent($filename);
+        return new Whois($l);
+    }
+
+    /**
+     * @param $filename
+     * @return bool|string
+     */
+    private static function loadContent($filename)
+    {
+        $file = __DIR__ . '/parsing_data/' . $filename;
+        if (!file_exists($file)) {
+            throw new InvalidArgumentException("File '$file' not found");
+        }
+        return file_get_contents($file);
+    }
+
+    /**
+     * @param array $a
+     * @return array
+     */
+    private static function sort($a): array
+    {
+        sort($a);
+        return $a;
     }
 
     public function getTestData(): array

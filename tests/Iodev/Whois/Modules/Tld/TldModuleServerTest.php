@@ -2,25 +2,14 @@
 
 namespace Iodev\Whois\Modules\Tld;
 
-use Iodev\Whois\Loaders\FakeSocketLoader;
 use Iodev\Whois\Factory;
+use Iodev\Whois\Loaders\FakeSocketLoader;
 use PHPUnit\Framework\TestCase;
 
 class TldModuleServerTest extends TestCase
 {
-    /**
-     * @param $zone
-     * @return TldServer
-     */
-    private static function createServer($zone): TldServer
-    {
-        $parser = Factory::get()->createTldParser();
-        return new TldServer($zone, "some.host.net", false, $parser);
-    }
-
     /** @var TldModule */
     private $mod;
-
 
     public function setUp(): void
     {
@@ -31,11 +20,20 @@ class TldModuleServerTest extends TestCase
     {
     }
 
-
     public function testAddServersReturnsSelf(): void
     {
         $res = $this->mod->addServers([self::createServer(".abc")]);
         self::assertSame($this->mod, $res, "Result must be self reference");
+    }
+
+    /**
+     * @param $zone
+     * @return TldServer
+     */
+    private static function createServer($zone): TldServer
+    {
+        $parser = Factory::get()->createTldParser();
+        return new TldServer($zone, "some.host.net", false, $parser);
     }
 
     public function testMatchServersQuietEmpty(): void

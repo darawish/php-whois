@@ -2,14 +2,17 @@
 
 namespace Iodev\Whois\Modules\Tld;
 
+use InvalidArgumentException;
 use Iodev\Whois\Factory;
+use Iodev\Whois\Modules\Tld\Parsers\TestCommonParser;
 use PHPUnit\Framework\TestCase;
 
 class TldServerTest extends TestCase
 {
-    private static function getServerClass(): string
+    public function testConstructValid(): void
     {
-        return \Iodev\Whois\Modules\Tld\TldServer::class;
+        $instance = new TldServer(".abc", "some.host.com", false, self::getParser());
+        self::assertInstanceOf(TldServer::class, $instance);
     }
 
     private static function getParser(): TldParser
@@ -19,25 +22,18 @@ class TldServerTest extends TestCase
 
     private static function getParserClass(): string
     {
-        return \Iodev\Whois\Modules\Tld\Parsers\TestCommonParser::class;
-    }
-
-
-    public function testConstructValid(): void
-    {
-        $instance = new TldServer(".abc", "some.host.com", false, self::getParser());
-        self::assertInstanceOf(TldServer::class, $instance);
+        return TestCommonParser::class;
     }
 
     public function testConstructEmptyZone(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         new TldServer("", "some.host.com", false, self::getParser());
     }
 
     public function testConstructEmptyHost(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         new TldServer(".abc", "", false, self::getParser());
     }
 
@@ -161,19 +157,19 @@ class TldServerTest extends TestCase
 
     public function testFromDataMissingZone(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         TldServer::fromData(["host" => "some.host"], self::getParser());
     }
 
     public function testFromDataMissingHost(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         TldServer::fromData(["zone" => ".abc"], self::getParser());
     }
 
     public function testFromDataMissingAll(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         TldServer::fromData([], self::getParser());
     }
 
@@ -189,6 +185,11 @@ class TldServerTest extends TestCase
         self::assertEquals(".abc", $s[0]->getZone());
         self::assertEquals("some.host", $s[0]->getHost());
         self::assertInstanceOf(self::getParserClass(), $s[0]->getParser());
+    }
+
+    private static function getServerClass(): string
+    {
+        return TldServer::class;
     }
 
     public function testFromDataListTwo(): void
